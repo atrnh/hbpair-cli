@@ -6,7 +6,6 @@
 
 
 import csv
-import sys
 from collections import defaultdict
 
 
@@ -83,3 +82,11 @@ def _get_pairs_from_csv(filename, stu_name_pos, pair_id_pos):
         pairs_by_id[pair_id].append(stu_name)
 
     return pairs_by_id
+
+
+if __name__ == '__main__':
+    import sys
+
+    all_pairs = AllPairs.from_csv(sys.argv[1])
+    all_pairs.update_with_csv(sys.argv[2])
+    all_pairs.write_to_csv(sys.argv[3])
