@@ -1,1 +1,4 @@
 *.csv
+env/
+hbpair_cli.egg-info/
+*.pyc
