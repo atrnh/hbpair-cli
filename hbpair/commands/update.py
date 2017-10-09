@@ -1,6 +1,5 @@
 from .base import Base
 from .pairs import AllPairs
-from json import dumps
 
 class Update(Base):
 

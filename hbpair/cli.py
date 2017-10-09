@@ -23,9 +23,7 @@ def main():
         if hasattr(commands, k) and v:
             module = getattr(commands, k)
             commands = getmembers(module, isclass)
-            print 'Commands:'
-            print commands
-            command = [command[1] for command in commands 
+            command = [command[1] for command in commands
                        if command[0] != 'Base' and command[0] != 'AllPairs'][0]
             command = command(options)
             command.run()
