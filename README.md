@@ -46,10 +46,10 @@ hbpair update all-pairs.csv pairs-wk4.csv
    students' names in the first column and have their pair ID in the **last
    column**. This sheet typically doesn't contain a header:
 
-   . | . | .   
-   - | - | -
+   ... | ... | ...   
+   --- | --- | ---
    Phoenix Wright | tardy | 1
-   Maya Fey | | 1
+   Maya Fey |   | 1
 5. Your updated pairs sheet will be created or updated at `all-pairs.csv` and
    can be imported into Google Sheets. When prompted, choose to overwrite
    the current sheet (or create a new one).
