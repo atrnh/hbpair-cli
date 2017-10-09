@@ -46,7 +46,7 @@ hbpair update all-pairs.csv pairs-wk4.csv
    students' names in the first column and have their pair ID in the **last
    column**. This sheet typically doesn't contain a header:
 
-     |   |   
+   . | . | .   
    - | - | -
    Phoenix Wright | tardy | 1
    Maya Fey | | 1
