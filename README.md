@@ -1,6 +1,6 @@
 # hbpair
 You're probably here because you need an All Pairs sheet in order to use the
-Pairing Tools plugin for Google Sheets. 
+Pairing Tools plugin for Google Sheets.
 
 This is a CLI that generates an `all-pairs.csv` that can be imported to Google
 Sheets. It will look something like this:
@@ -46,6 +46,8 @@ hbpair update all-pairs.csv pairs-wk4.csv
    students' names in the first column and have their pair ID in the **last
    column**. This sheet typically doesn't contain a header:
 
+     |   |   
+   - | - | -
    Phoenix Wright | tardy | 1
    Maya Fey | | 1
 5. Your updated pairs sheet will be created or updated at `all-pairs.csv` and
