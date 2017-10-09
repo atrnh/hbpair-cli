@@ -52,8 +52,23 @@ class AllPairs:
         with open(filename, 'wb') as csvfile:
             writer = csv.writer(csvfile)
 
+            first_time = True
+
             for student in self.data:
+                if first_time:
+                    _write_header(writer, len(self.data[student]))
+                    first_time = False
+
                 writer.writerow([student] + self.data[student])
+
+
+def _write_header(csv_writer, weeks_count):
+    writer.writerow(
+        ['Name'] +
+        ['Week {}'.format(week)
+         for week in xrange(1, weeks_count + 1)
+         ]
+    )
 
 
 def _get_rows_from_csv(filename):
@@ -76,17 +91,9 @@ def _get_pairs_from_csv(filename, stu_name_pos, pair_id_pos):
     pairs_by_id = defaultdict(list)
 
     for pair_data in pairs_rows:
-        pair_id = pair_data[pair_id_pos]
         stu_name = pair_data[stu_name_pos]
+        pair_id = pair_data[pair_id_pos]
 
         pairs_by_id[pair_id].append(stu_name)
 
     return pairs_by_id
-
-
-if __name__ == '__main__':
-    import sys
-
-    all_pairs = AllPairs.from_csv(sys.argv[1])
-    all_pairs.update_with_csv(sys.argv[2])
-    all_pairs.write_to_csv(sys.argv[3])
