@@ -29,7 +29,10 @@ class AllPairs:
         data = defaultdict(list)
 
         with open(filename, 'rb') as csvfile:
-            for row in csv.reader(csvfile):
+            reader = csv.reader(csvfile)
+            next(reader, None)  # skip the header
+
+            for row in reader:
                 data[row[0]].extend(row[1:])
 
         return cls(data)
@@ -63,7 +66,7 @@ class AllPairs:
 
 
 def _write_header(csv_writer, weeks_count):
-    writer.writerow(
+    csv_writer.writerow(
         ['Name'] +
         ['Week {}'.format(week)
          for week in xrange(1, weeks_count + 1)
