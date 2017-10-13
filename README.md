@@ -55,5 +55,5 @@ hbpair update all-pairs.csv pairs-wk4.csv
    the current sheet (or create a new one).
 
 ## To-do
-- [] Fetch current spreadsheet from Google
-- [] Push changes to Google Sheets
+- [ ] Fetch current spreadsheet from Google
+- [ ] Push changes to Google Sheets
