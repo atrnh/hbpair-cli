@@ -53,3 +53,7 @@ hbpair update all-pairs.csv pairs-wk4.csv
 5. Your updated pairs sheet will be created or updated at `all-pairs.csv` and
    can be imported into Google Sheets. When prompted, choose to overwrite
    the current sheet (or create a new one).
+
+## To-do
+- [] Fetch current spreadsheet from Google
+- [] Push changes to Google Sheets
