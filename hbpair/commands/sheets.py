@@ -84,5 +84,9 @@ def get_sheet(sheet_name):
     return execute_script('getSheet', [sheet_name], True)
 
 
+def push_sheet(sheet_name, rows):
+    return execute_script('writeToSheet', [sheet_name, rows], True)
+
+
 if __name__ == '__main__':
     print get_sheet('1')
