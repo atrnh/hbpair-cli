@@ -3,3 +3,5 @@ env/
 hbpair_cli.egg-info/
 *.pyc
 .DS_Store
+client_secret.json
+*.swp
