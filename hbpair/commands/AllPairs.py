@@ -7,7 +7,7 @@
 
 import csv
 from collections import defaultdict
-
+import sheets
 
 class AllPairs:
     """Store student names and their pairs for each week."""
@@ -36,6 +36,18 @@ class AllPairs:
                 data[row[0]].extend(row[1:])
 
         return cls(data)
+
+    @classmethod
+    def from_gsheets(cls, sheet_name):
+        """Make AllPairs from rectangular list."""
+
+        data = defaultdict(list)
+        sheet = sheets.get_sheet(sheet_name)
+
+        [data[row[0]].extend(row[1:]) for row in sheet]
+
+        return cls(data)
+
 
     def update_with_csv(self, filename, stu_name_pos=0, pair_id_pos=-1):
         """Update pairs data using a dictionary of pairs by pair ID."""
