@@ -4,7 +4,7 @@ hbpair
 Usage:
     hbpair -h | --help
     hbpair --version
-    hbpair update (<source-csv> <updater-csv>)
+    hbpair push (<sheet-name>)
 
 Examples:
     hbpair update all-pairs.csv pairs-wk4.csv
