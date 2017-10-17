@@ -1,5 +1,5 @@
 from .base import Base
-from .pairs import AllPairs
+from .AllPairs import AllPairs
 
 class Update(Base):
 
