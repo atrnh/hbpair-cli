@@ -44,16 +44,33 @@ class AllPairs:
         data = defaultdict(list)
         sheet = sheets.get_sheet(sheet_name)
 
-        [data[row[0]].extend(row[1:]) for row in sheet]
+        [data[row[0]].extend(row[1:])
+         for i, row in enumerate(sheet)
+         if i != 0  # skip the first row
+         ]
 
         return cls(data)
 
 
     def update_with_csv(self, filename, stu_name_pos=0, pair_id_pos=-1):
-        """Update pairs data using a dictionary of pairs by pair ID."""
+        """Update pairs data with a csv."""
 
         pairs_by_id = _get_pairs_from_csv(filename, stu_name_pos, pair_id_pos)
+        self.update_with_dict(pairs_by_id)
 
+    def update_with_gsheets(self, sheet_name, stu_name_pos=0, pair_id_pos=-1):
+        """Update pairs data with Google Sheets."""
+    
+        pairs_by_id = _get_pairs_from_list(
+                                           sheets.get_sheet(sheet_name),
+                                           stu_name_pos,
+                                           pair_id_pos
+                                           )
+        self.update_with_dict(pairs_by_id)
+
+    def update_with_dict(self, pairs_by_id):
+        """Update pairs data with a dictionary of pairs by pair ID."""
+        
         for pair_id in pairs_by_id:
             curr_pair = pairs_by_id[pair_id]
 
@@ -63,22 +80,30 @@ class AllPairs:
             else:
                 self.data[curr_pair[0]].append('')
 
+    def get_data_rows(self, with_header=True):
+        rows = []
+        first_time = True
+
+        for student in self.data:
+            if first_time and with_header:
+                rows.append(_header(len(self.data[student])))
+                first_time = False
+
+            rows.append([student] + self.data[student])
+
+        return rows
+
     def write_to_csv(self, filename):
         with open(filename, 'wb') as csvfile:
             writer = csv.writer(csvfile)
+            [writer.writerow(row) for row in self.get_data_rows()]
 
-            first_time = True
-
-            for student in self.data:
-                if first_time:
-                    _write_header(writer, len(self.data[student]))
-                    first_time = False
-
-                writer.writerow([student] + self.data[student])
+    def push_to_gsheets(self, sheet_name):
+        sheets.push_sheet(sheet_name, self.get_data_rows())
 
 
-def _write_header(csv_writer, weeks_count):
-    csv_writer.writerow(
+def _header(weeks_count):
+    return ( 
         ['Name'] +
         ['Week {}'.format(week)
          for week in xrange(1, weeks_count + 1)
@@ -103,6 +128,11 @@ def _get_pairs_from_csv(filename, stu_name_pos, pair_id_pos):
     """
 
     pairs_rows = _get_rows_from_csv(filename)
+    
+    return _get_pairs_from_list(pairs_rows, stu_name_pos, pair_id_pos) 
+
+
+def _get_pairs_from_list(pairs_rows, stu_name_pos, pair_id_pos):
     pairs_by_id = defaultdict(list)
 
     for pair_data in pairs_rows:
@@ -112,3 +142,4 @@ def _get_pairs_from_csv(filename, stu_name_pos, pair_id_pos):
         pairs_by_id[pair_id].append(stu_name)
 
     return pairs_by_id
+    
