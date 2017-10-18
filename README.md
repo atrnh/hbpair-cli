@@ -2,8 +2,8 @@
 You're probably here because you need an All Pairs sheet in order to use the
 Pairing Tools plugin for Google Sheets.
 
-This is a CLI that generates an `all-pairs.csv` that can be imported to Google
-Sheets. It will look something like this:
+This CLI updates an "All Pairs" sheet in Google Sheets. It looks something like
+this:
 
 Name | Week 1 | Week 2
 ---- | ------ | ------
@@ -14,12 +14,17 @@ Where *Name* is a student's name and *Week 1* is their pair for week 1.
 
 ## Usage
 ```
-hbpair update (<source-csv> <updater-csv>)
+hbpair push [-a | <sheet-name>]
+```
+
+Options:
+```
+-a --all  Update All Pairs using all pairing sheets.
 ```
 
 Example:
 ```
-hbpair update all-pairs.csv pairs-wk4.csv
+hbpair push Week\ 1
 ```
 
 ### Working with Google Sheets
@@ -35,25 +40,23 @@ hbpair update all-pairs.csv pairs-wk4.csv
    ```
    pip install .
    ```
-3. Export your **All Pairs** sheet as a `.csv`, which should list all students'
+3. Make sure your **All Pairs** sheet has a column with all your students'
    names:
 
    Name |
    ---- |
    Apollo Justice |
    ... |
-4. Export your pairing sheet for that week as a `.csv`. It should contain
-   students' names in the first column and have their pair ID in the **last
-   column**. This sheet typically doesn't contain a header:
+4. When you assign pairs for the week, make sure you have students' names in
+   the first column and their pair IDs in the **last column**. This sheet
+   typically doesn't contain a header:
 
    ... | ... | ...   
    --- | --- | ---
    Phoenix Wright | tardy | 1
    Maya Fey |   | 1
-5. Your updated pairs sheet will be created or updated at `all-pairs.csv` and
-   can be imported into Google Sheets. When prompted, choose to overwrite
-   the current sheet (or create a new one).
+5. Run `hbpair push` with the name of your new pairing sheet.
 
 ## To-do
-- [x] Fetch current spreadsheet from Google
+- [ ] Fetch current All Pairs spreadsheet from Google
 - [x] Push changes to Google Sheets
