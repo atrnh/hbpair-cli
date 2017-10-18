@@ -56,7 +56,7 @@ class AllPairs:
         """Update pairs data with a csv."""
 
         pairs_by_id = _get_pairs_from_csv(filename, stu_name_pos, pair_id_pos)
-        self.update_with_dict(pairs_by_id)
+        return self.update_with_dict(pairs_by_id)
 
     def update_with_gsheets(self, sheet_name, stu_name_pos=0, pair_id_pos=-1):
         """Update pairs data with Google Sheets."""
@@ -66,7 +66,23 @@ class AllPairs:
                                            stu_name_pos,
                                            pair_id_pos
                                            )
-        self.update_with_dict(pairs_by_id)
+        return self.update_with_dict(pairs_by_id)
+
+    def update_with_all_gsheets(self, stu_name_pos=0, pair_id_pos=-1):
+        """Update pairs data with all sheets in Google Sheets."""
+        
+        all_sheets = sheets.get_sheets_names()
+
+        [self.update_with_dict(_get_pairs_from_list(
+                                                    sheets.get_sheet(sheet_name),
+                                                    stu_name_pos,
+                                                    pair_id_pos
+                                                    ))
+         for sheet_name in all_sheets
+         if sheet_name != 'All Pairs'
+         ]
+
+        return self
 
     def update_with_dict(self, pairs_by_id):
         """Update pairs data with a dictionary of pairs by pair ID."""
@@ -79,6 +95,8 @@ class AllPairs:
                 self.data[curr_pair[1]].append(curr_pair[0])
             else:
                 self.data[curr_pair[0]].append('')
+
+        return self
 
     def get_data_rows(self, with_header=True):
         rows = []

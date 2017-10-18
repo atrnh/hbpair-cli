@@ -8,11 +8,11 @@ from oauth2client.file import Storage
 
 from apiclient import errors
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
+#try:
+#    import argparse
+#    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+#except ImportError:
+#    flags = None
 
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
 CLIENT_SECRET_FILE = 'client_secret.json'
@@ -40,10 +40,10 @@ def get_credentials():
     if not credentials or credentials.invalid:
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else:
-            credentials = tools.run(flow, store)
+#        if flags:
+#            credentials = tools.run_flow(flow, store, flags)
+#        else:
+#            credentials = tools.run(flow, store)
 
         print 'Storing credentials to {}'.format(credential_path)
 
@@ -86,6 +86,9 @@ def get_sheet(sheet_name):
 
 def push_sheet(sheet_name, rows):
     return execute_script('writeToSheet', [sheet_name, rows], True)
+
+def get_sheets_names():
+    return execute_script('getSheets', [], True)
 
 
 if __name__ == '__main__':
